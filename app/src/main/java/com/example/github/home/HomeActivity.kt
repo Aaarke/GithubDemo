@@ -1,8 +1,8 @@
-package com.example.github
+package com.example.github.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.github.ui.home.HomeFragment
+import com.example.github.R
 
 class HomeActivity : AppCompatActivity() {
 

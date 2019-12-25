@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Github</string>
+    <string name="post_error">An error occurred while loading the posts</string>
+
 </resources>
