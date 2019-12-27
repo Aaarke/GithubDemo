@@ -1,11 +1,18 @@
 package com.example.github.model
 
-import android.content.ClipData.Item
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 
 data class GitData(
+    @SerializedName("total_count")
+    @Expose
     val totalCount: Int? = null,
+    @SerializedName("incomplete_results")
+    @Expose
     val incompleteResults: Boolean? = null,
-    val items: List<Item>? = null
+    @SerializedName("items")
+    @Expose
+    val items: ArrayList<Item>? = null
 
 )

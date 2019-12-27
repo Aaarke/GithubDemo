@@ -7,7 +7,7 @@ import com.example.github.di.NetworkModule
 import com.example.github.home.HomeViewModel
 
 
-abstract class BaseViewModel: ViewModel(){
+abstract class BaseViewModel : ViewModel() {
 
 
     private val injector: ApiComponent = DaggerApiComponent

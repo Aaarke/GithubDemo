@@ -11,11 +11,17 @@ class APIAvailabilityTest {
     @Test
     @Throws(Exception::class)
     fun testAvailability() {
-        val connection = URL("https://api.github.com/search/repositories?q=tetris&sort=stars&order=desc").openConnection()
+        val connection =
+            URL("https://api.github.com/search/repositories?q=tetris&sort=stars&order=desc").openConnection()
         val response = connection.getInputStream()
 
         val buffer = StringBuffer()
-        BufferedReader(InputStreamReader(response, Charset.defaultCharset()) as Reader).use { reader ->
+        BufferedReader(
+            InputStreamReader(
+                response,
+                Charset.defaultCharset()
+            ) as Reader
+        ).use { reader ->
             var line: String?
             do {
                 line = reader.readLine()

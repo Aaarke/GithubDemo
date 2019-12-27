@@ -17,14 +17,14 @@ class HomeViewModel : BaseViewModel() {
         @Inject set
     var gitData = MutableLiveData<GitData>()
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage:MutableLiveData<Int> = MutableLiveData()
+    val errorMessage: MutableLiveData<Int> = MutableLiveData()
 
     private val subscription = CompositeDisposable()
 
 
-    fun getGitData(){
+    fun getGitData() {
         val map = HashMap<String, String>()
-        map[Keys.ApiField.REQ_Q]="tetris"
+        map[Keys.ApiField.REQ_Q] = "tetris"
         map[Keys.ApiField.REQ_SORT] = "stars"
         map[Keys.ApiField.REQ_ORDER] = "desc"
         subscription.add(
@@ -57,7 +57,7 @@ class HomeViewModel : BaseViewModel() {
     }
 
     private fun onRetrieveSearchRepoSuccess(result: GitData?) {
-        gitData.value=result
+        gitData.value = result
     }
 
 

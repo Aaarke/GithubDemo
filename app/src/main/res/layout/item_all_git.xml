@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repo_item_container"
+    android:layout_width="match_parent"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <ImageView
+        android:id="@+id/ivAvtar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ic_placeholder"
+        android:clickable="false"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:id="@+id/rlRepoDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivAvtar">
+
+        <LinearLayout
+            android:id="@+id/llRepoDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_2"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size_12"
+                tools:text="mbinary" />
+
+            <TextView
+                android:id="@+id/tvFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold"
+                tools:text="USTC-CS-Cources-Resource">
+
+            </TextView>
+
+
+                <TextView
+                    android:id="@+id/tvRepoDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/ivWatcherCount"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/watcher_count"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tvWatcherCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@+id/ivWatcherCount"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_12"
+                        tools:text="C++" />
+
+                    <ImageView
+                        android:id="@+id/ivStarGazzers"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/tvWatcherCount"
+                        android:src="@drawable/star_yellow_16"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tvStarGazzers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/text_color"
+                        android:layout_toEndOf="@+id/ivStarGazzers"
+                        android:textSize="@dimen/text_size_12"
+                        android:text="@string/_6_789">
+
+                    </TextView>
+
+
+                    <ImageView
+                        android:id="@+id/ivTotalFork"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/tvStarGazzers"
+                        android:src="@drawable/fork_black_16"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tvTotalFork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/ivTotalFork"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/text_size_12"
+                        android:text="6789" />
+                </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rlRepoDetail"
+        android:layout_marginTop="16dp"
+        android:background="@color/material_grey300" />
+
+</RelativeLayout>

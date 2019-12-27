@@ -1,4 +1,4 @@
-package com.example.github.home
+package com.example.github.home.fragment
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,7 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.github.R
+import com.example.github.home.GitSearchAdapter
+import com.example.github.home.HomeViewModel
+import com.example.github.model.Item
+import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
 
@@ -29,9 +34,27 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         homeViewModel.getGitData()
         homeViewModel.gitData.observe(this, Observer {
-
+            setAdapter(it.items)
         })
 
+        homeViewModel.loadingVisibility.observe(this, Observer {
+            if (it == View.GONE) {
+                pbHomeLoader.visibility = View.GONE
+            } else {
+                pbHomeLoader.visibility = View.VISIBLE
+            }
+        })
+
+
     }
+
+    private fun setAdapter(items: ArrayList<Item>?) {
+        val mGitSearchAdapter = GitSearchAdapter(context!!, items)
+        val mLinearLayoutManager =
+            LinearLayoutManager(activity)
+        rvGitRepo.layoutManager = mLinearLayoutManager
+        rvGitRepo.adapter = mGitSearchAdapter
+    }
+
 
 }
