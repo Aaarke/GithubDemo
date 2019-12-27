@@ -2,6 +2,7 @@ package com.example.github.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Item(
@@ -226,6 +227,17 @@ data class Item(
     val defaultBranch: String,
     @SerializedName("score")
     @Expose
-    val score: Double
+    val score: Double,
 
-)
+    @SerializedName("login")
+    @Expose
+    val login: String,
+    @SerializedName("avatar_url")
+    @Expose
+    val avtarUrl: String,
+
+    @SerializedName("repos_url")
+    @Expose
+    val repoUrl: String
+
+) : Serializable

@@ -10,6 +10,12 @@ interface Keys {
     }
     }
 
+    interface EXTRAS{
+        companion object{
+            const val REPO_ITEM="repo_item"
+        }
+    }
+
     companion object{
     const val BASE_URL = "https://api.github.com"
 }

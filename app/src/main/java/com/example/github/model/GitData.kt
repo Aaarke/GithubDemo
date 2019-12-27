@@ -2,6 +2,7 @@ package com.example.github.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class GitData(
@@ -15,4 +16,4 @@ data class GitData(
     @Expose
     val items: ArrayList<Item>? = null
 
-)
+):Serializable

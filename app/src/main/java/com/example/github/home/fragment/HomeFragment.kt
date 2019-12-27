@@ -1,5 +1,7 @@
 package com.example.github.home.fragment
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,10 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.github.R
 import com.example.github.home.GitSearchAdapter
 import com.example.github.home.HomeViewModel
+import com.example.github.home.OnRepoItemClickedListener
 import com.example.github.model.Item
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
+    private var listener: OnHomeFragmentInteractionListener? = null
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -48,8 +52,25 @@ class HomeFragment : Fragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnHomeFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    interface OnHomeFragmentInteractionListener {
+        fun onFragmentInteraction(item: Item)
+    }
+
     private fun setAdapter(items: ArrayList<Item>?) {
-        val mGitSearchAdapter = GitSearchAdapter(context!!, items)
+        val mGitSearchAdapter = GitSearchAdapter(context!!, items,object:OnRepoItemClickedListener{
+            override fun onItemClicked(item: Item) {
+                listener?.onFragmentInteraction(item)
+            }
+        })
         val mLinearLayoutManager =
             LinearLayoutManager(activity)
         rvGitRepo.layoutManager = mLinearLayoutManager

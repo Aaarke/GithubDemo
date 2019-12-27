@@ -1,4 +1,4 @@
-package com.example.github.home
+package com.example.github.repoDetail
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -11,18 +11,18 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.example.github.R
+import com.example.github.home.OnRepoItemClickedListener
 import com.example.github.model.Item
-import kotlinx.android.synthetic.main.item_all_git.view.*
+import kotlinx.android.synthetic.main.item_contributor.view.*
 
-class GitSearchAdapter(
-    var context: Context,
-    var list: ArrayList<Item>?,
+class ContributorAdapter(
+    var context: Context, var list: ArrayList<Item>?,
     var onRepoItemClickedListener: OnRepoItemClickedListener
 ) :
-    RecyclerView.Adapter<GitSearchAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ContributorAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_all_git, parent, false)
+            .inflate(R.layout.item_contributor, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -38,27 +38,22 @@ class GitSearchAdapter(
                     RequestOptions().fitCenter().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .placeholder(R.drawable.ic_placeholder).circleCrop()
                 )
-                .load(list?.get(position)?.owner?.avatarUrl)
-                .into(object : BitmapImageViewTarget(holder.itemView.ivAvtar) {
+                .load(list?.get(position)?.avtarUrl)
+                .into(object : BitmapImageViewTarget(holder.itemView.ivContriButor) {
                     override fun setResource(resource: Bitmap?) {
-                        holder.itemView.ivAvtar.setImageBitmap(resource)
+                        holder.itemView.ivContriButor.setImageBitmap(resource)
                     }
                 })
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
+        holder.itemView.tvContriButorName.text = list?.get(position)?.login
         holder.itemView.setOnClickListener {
             onRepoItemClickedListener.onItemClicked(list?.get(position)!!)
         }
-        holder.itemView.let {
-            it.tvName.text = list?.get(position)?.name
-            it.tvFullName.text = list?.get(position)?.fullName
-            it.tvWatcherCount.text = list?.get(position)?.watchersCount.toString()
-            it.tvStarGazzers.text = list?.get(position)?.stargazersCount.toString()
-            it.tvTotalFork.text = list?.get(position)?.forksCount.toString()
-        }
     }
+
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!)
 

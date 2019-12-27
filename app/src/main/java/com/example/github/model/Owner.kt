@@ -2,6 +2,7 @@ package com.example.github.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Owner(
 
@@ -59,4 +60,4 @@ data class Owner(
     @SerializedName("site_admin")
     @Expose
     val siteAdmin: Boolean
-)
+):Serializable

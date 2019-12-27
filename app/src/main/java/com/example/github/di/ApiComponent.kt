@@ -1,6 +1,7 @@
 package com.example.github.di
 
 import com.example.github.home.HomeViewModel
+import com.example.github.repoDetail.RepoDetailViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -16,6 +17,8 @@ interface ApiComponent {
     }
 
     fun inject(homeViewModel: HomeViewModel)
+    fun inject(repoDetailViewModel: RepoDetailViewModel)
+
 
 
 }

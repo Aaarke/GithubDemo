@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".repoDetail.RepoDetailActivity"
+    tools:showIn="@layout/activity_repo_detail">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/llRepoBasicDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                android:text="@string/name"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tvNameValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                />
+
+
+
+            <TextView
+                android:id="@+id/tvLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                android:text="@string/project_link"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:id="@+id/tvLinkValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                android:textColorLink="@color/material_blue500"
+                android:autoLink="web"
+                />
+
+            <TextView
+                android:id="@+id/tvRepoDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                android:text="@string/description"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:id="@+id/tvRepoDescriptionValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_18sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llRepoContriButor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_size_5"
+            android:orientation="horizontal" />
+        <ProgressBar
+            android:id="@+id/pbContriButorLoader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContriButor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

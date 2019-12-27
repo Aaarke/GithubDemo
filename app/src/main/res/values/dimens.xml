@@ -22,21 +22,15 @@
     <dimen name="text_size_20">20sp</dimen>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     <dimen name="size_2">2dp</dimen>
     <dimen name="activityPadding">16dp</dimen>
     <dimen name="placeholderImage">60dp</dimen>
     <dimen name="placeholderTextHeight">8dp</dimen>
     <dimen name="padding_10">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="_18sp">18sp</dimen>
 </resources>

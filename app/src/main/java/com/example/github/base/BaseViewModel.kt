@@ -5,6 +5,7 @@ import com.example.github.di.ApiComponent
 import com.example.github.di.DaggerApiComponent
 import com.example.github.di.NetworkModule
 import com.example.github.home.HomeViewModel
+import com.example.github.repoDetail.RepoDetailViewModel
 
 
 abstract class BaseViewModel : ViewModel() {
@@ -25,6 +26,10 @@ abstract class BaseViewModel : ViewModel() {
     private fun inject() {
         when (this) {
             is HomeViewModel -> {
+                injector.inject(this)
+            }
+
+            is RepoDetailViewModel -> {
                 injector.inject(this)
             }
         }
