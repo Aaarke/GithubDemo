@@ -22,9 +22,9 @@ class HomeViewModel : BaseViewModel() {
     private val subscription = CompositeDisposable()
 
 
-    fun getGitData() {
+    fun getGitData(search:String) {
         val map = HashMap<String, String>()
-        map[Keys.ApiField.REQ_Q] = "tetris"
+        map[Keys.ApiField.REQ_Q] = search
         map[Keys.ApiField.REQ_SORT] = "stars"
         map[Keys.ApiField.REQ_ORDER] = "desc"
         subscription.add(

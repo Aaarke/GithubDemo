@@ -13,7 +13,10 @@ interface Keys {
     interface EXTRAS{
         companion object{
             const val REPO_ITEM="repo_item"
+            const val URL="url"
         }
+
+
     }
 
     companion object{

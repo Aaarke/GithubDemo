@@ -100,5 +100,10 @@
     <string name="description">Description</string>
     <string name="project_link">Project Link :</string>
     <string name="name">Name</string>
+    <string name="contributors">Contributors:</string>
+    <string name="title_activity_contri_butor">ContriButorActivity</string>
+    <string name="repo_list">Repo List</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="repo">Repo</string>
 
 </resources>

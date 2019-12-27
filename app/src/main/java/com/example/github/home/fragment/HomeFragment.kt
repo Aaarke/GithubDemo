@@ -1,14 +1,12 @@
 package com.example.github.home.fragment
 
 import android.content.Context
-import android.net.Uri
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.github.R
 import com.example.github.home.GitSearchAdapter
@@ -17,8 +15,10 @@ import com.example.github.home.OnRepoItemClickedListener
 import com.example.github.model.Item
 import kotlinx.android.synthetic.main.home_fragment.*
 
+
 class HomeFragment : Fragment() {
     private var listener: OnHomeFragmentInteractionListener? = null
+    private var mGitSearchAdapter: GitSearchAdapter? = null
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        homeViewModel.getGitData()
+        homeViewModel.getGitData("tetris")
         homeViewModel.gitData.observe(this, Observer {
             setAdapter(it.items)
         })
@@ -44,13 +44,20 @@ class HomeFragment : Fragment() {
         homeViewModel.loadingVisibility.observe(this, Observer {
             if (it == View.GONE) {
                 pbHomeLoader.visibility = View.GONE
+                main.isRefreshing = false
             } else {
                 pbHomeLoader.visibility = View.VISIBLE
             }
         })
 
+        main.setOnRefreshListener {
+            main.isRefreshing = false
+            homeViewModel.getGitData("tetris")
+        }
+
 
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,15 +73,22 @@ class HomeFragment : Fragment() {
     }
 
     private fun setAdapter(items: ArrayList<Item>?) {
-        val mGitSearchAdapter = GitSearchAdapter(context!!, items,object:OnRepoItemClickedListener{
-            override fun onItemClicked(item: Item) {
-                listener?.onFragmentInteraction(item)
-            }
-        })
+        val sortedList: ArrayList<Item> = ArrayList()
+        sortedList.addAll(items?.sortedWith(compareBy { it.watchersCount })?.reversed()!!)
+        mGitSearchAdapter =
+            GitSearchAdapter(context!!, sortedList, object : OnRepoItemClickedListener {
+                override fun onItemClicked(item: Item) {
+                    listener?.onFragmentInteraction(item)
+                }
+            })
         val mLinearLayoutManager =
             LinearLayoutManager(activity)
         rvGitRepo.layoutManager = mLinearLayoutManager
         rvGitRepo.adapter = mGitSearchAdapter
+    }
+
+    fun searchRepo(searchString: String) {
+        homeViewModel.getGitData(searchString)
     }
 
 

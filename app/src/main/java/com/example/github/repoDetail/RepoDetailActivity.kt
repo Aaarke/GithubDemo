@@ -1,5 +1,6 @@
 package com.example.github.repoDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.github.R
+import com.example.github.contriButor.ContriButorActivity
 import com.example.github.home.OnRepoItemClickedListener
 import com.example.github.model.Item
 import com.example.github.utility.Keys
+import com.example.github.webView.WebViewActivity
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kotlinx.android.synthetic.main.activity_repo_detail.*
 import kotlinx.android.synthetic.main.content_repo_detail.*
@@ -53,7 +56,11 @@ class RepoDetailActivity : AppCompatActivity() {
         val mContributorAdapter = ContributorAdapter(this, items,object:
             OnRepoItemClickedListener {
             override fun onItemClicked(item: Item) {
-
+                val bundle = Bundle()
+                val i = Intent(this@RepoDetailActivity, ContriButorActivity::class.java)
+                bundle.putSerializable(Keys.EXTRAS.REPO_ITEM, item)
+                i.putExtras(bundle)
+                startActivity(i)
             }
         })
         val mGridLayoutManager = GridLayoutManager(this,4)
@@ -101,6 +108,11 @@ class RepoDetailActivity : AppCompatActivity() {
             .into(ivAuthor)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
+        }
+        tvLinkValue.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra(Keys.EXTRAS.URL, item?.htmlUrl)
+            startActivity(intent)
         }
     }
 

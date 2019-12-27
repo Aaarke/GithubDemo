@@ -1,64 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/repo_item_container"
     android:layout_width="match_parent"
-    android:foreground="?android:attr/selectableItemBackground"
     android:layout_height="wrap_content"
-    android:padding="5dp">
-    <ImageView
-        android:id="@+id/ivAvtar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/ic_placeholder"
-        android:clickable="false"
-        tools:ignore="ContentDescription" />
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardUseCompatPadding="true"
+    >
     <RelativeLayout
-        android:id="@+id/rlRepoDetail"
+        android:id="@+id/repo_item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/ivAvtar">
+        >
+        <ImageView
+            android:id="@+id/ivAvtar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_placeholder"
+            android:clickable="false"
+            tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:id="@+id/llRepoDetails"
+        <RelativeLayout
+            android:id="@+id/rlRepoDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
-            >
+            android:layout_toEndOf="@+id/ivAvtar">
 
-            <TextView
-                android:id="@+id/tvName"
+            <LinearLayout
+                android:id="@+id/llRepoDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/size_2"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/text_size_12"
-                tools:text="mbinary" />
-
-            <TextView
-                android:id="@+id/tvFullName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_16"
-                android:textStyle="bold"
-                tools:text="USTC-CS-Cources-Resource">
-
-            </TextView>
-
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                >
 
                 <TextView
-                    android:id="@+id/tvRepoDescription"
+                    android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/size_2"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_12"
-                    tools:text="中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文" />
+                    tools:text="mbinary" />
+
+                <TextView
+                    android:id="@+id/tvFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold"
+                    tools:text="USTC-CS-Cources-Resource">
+
+                </TextView>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -129,14 +126,17 @@
                 </RelativeLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rlRepoDetail"
+            android:layout_marginTop="16dp"
+            android:background="@color/material_grey300" />
 
     </RelativeLayout>
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/rlRepoDetail"
-        android:layout_marginTop="16dp"
-        android:background="@color/material_grey300" />
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
+

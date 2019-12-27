@@ -1,6 +1,7 @@
 package com.example.github.base
 
 import androidx.lifecycle.ViewModel
+import com.example.github.contriButor.ContriButorViewModel
 import com.example.github.di.ApiComponent
 import com.example.github.di.DaggerApiComponent
 import com.example.github.di.NetworkModule
@@ -30,6 +31,10 @@ abstract class BaseViewModel : ViewModel() {
             }
 
             is RepoDetailViewModel -> {
+                injector.inject(this)
+            }
+
+            is ContriButorViewModel -> {
                 injector.inject(this)
             }
         }

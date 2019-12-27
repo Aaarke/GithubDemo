@@ -1,21 +1,19 @@
 package com.example.github.home
 
-import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import com.example.github.R
+import com.example.github.base.BaseActivity
 import com.example.github.home.fragment.HomeFragment
 import com.example.github.model.Item
 import com.example.github.repoDetail.RepoDetailActivity
+import com.example.github.utility.Constants
 import com.example.github.utility.Keys
 
 
-class HomeActivity : AppCompatActivity(), HomeFragment.OnHomeFragmentInteractionListener {
+class HomeActivity : BaseActivity(), HomeFragment.OnHomeFragmentInteractionListener {
     override fun onFragmentInteraction(item: Item) {
         val bundle = Bundle()
         val i = Intent(this, RepoDetailActivity::class.java)
@@ -30,20 +28,32 @@ class HomeActivity : AppCompatActivity(), HomeFragment.OnHomeFragmentInteraction
         setContentView(R.layout.home_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment.newInstance())
+                .replace(R.id.container, HomeFragment.newInstance(), Constants.Fragment.FRAG_HOME)
                 .commitNow()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.dashboard, menu)
+        menuInflater.inflate(R.menu.dashboard, menu);
+        val myActionMenuItem = menu?.findItem(R.id.action_search)
+        var searchView = myActionMenuItem?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (!searchView.isIconified) {
+                    searchView.isIconified = true
+                }
+                myActionMenuItem.collapseActionView()
+                val frag =
+                    supportFragmentManager.findFragmentByTag(Constants.Fragment.FRAG_HOME) as HomeFragment
+                frag.searchRepo(query)
+                return false
+            }
 
-        val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView: SearchView? = searchItem?.actionView as SearchView
-
-        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        return super.onCreateOptionsMenu(menu)
+            override fun onQueryTextChange(s: String): Boolean {
+                return false
+            }
+        })
+        return true
     }
 
 

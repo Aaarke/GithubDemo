@@ -15,8 +15,8 @@ interface ApiInterface {
     fun searchGitRepo(@QueryMap map: HashMap<String, String>?): Observable<GitData>
 
     @GET
-    fun getContriButers(@Url contriUrl:String):Observable<ArrayList<Item>>
+    fun getContriButers(@Url contriUrl: String): Observable<ArrayList<Item>>
 
     @GET
-    fun getAllRepoOfUser(@Url reposUrl:String)
+    fun getAllRepoOfUser(@Url reposUrl: String): Observable<ArrayList<Item>>
 }

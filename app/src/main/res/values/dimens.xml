@@ -33,4 +33,5 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="_18sp">18sp</dimen>
+    <dimen name="_300dp">300dp</dimen>
 </resources>
