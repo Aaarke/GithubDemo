@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_10"
         >
+
         <ImageView
             android:id="@+id/ivContriButor"
             android:layout_width="@dimen/_60dp"

@@ -50,7 +50,7 @@ class ContributorAdapter(
 
         holder.itemView.tvContriButorName.text = list?.get(position)?.login
         holder.itemView.setOnClickListener {
-            onRepoItemClickedListener.onItemClicked(list?.get(position)!!)
+            onRepoItemClickedListener.onItemClicked(position,list?.get(position)!!,holder.itemView.ivContriButor)
         }
     }
 

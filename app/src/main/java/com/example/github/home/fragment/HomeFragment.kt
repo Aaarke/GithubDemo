@@ -2,8 +2,10 @@ package com.example.github.home.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
-import androidx.appcompat.widget.SearchView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -69,7 +71,7 @@ class HomeFragment : Fragment() {
     }
 
     interface OnHomeFragmentInteractionListener {
-        fun onFragmentInteraction(item: Item)
+        fun onFragmentInteraction(position: Int, item: Item, imageView: ImageView)
     }
 
     private fun setAdapter(items: ArrayList<Item>?) {
@@ -77,8 +79,8 @@ class HomeFragment : Fragment() {
         sortedList.addAll(items?.sortedWith(compareBy { it.watchersCount })?.reversed()!!)
         mGitSearchAdapter =
             GitSearchAdapter(context!!, sortedList, object : OnRepoItemClickedListener {
-                override fun onItemClicked(item: Item) {
-                    listener?.onFragmentInteraction(item)
+                override fun onItemClicked(position: Int, item: Item, imageView: ImageView) {
+                    listener?.onFragmentInteraction(position, item, imageView)
                 }
             })
         val mLinearLayoutManager =

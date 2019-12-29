@@ -1,8 +1,10 @@
 package com.example.github.repoDetail
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -55,7 +57,7 @@ class RepoDetailActivity : AppCompatActivity() {
     private fun setAdapter(items: ArrayList<Item>?) {
         val mContributorAdapter = ContributorAdapter(this, items,object:
             OnRepoItemClickedListener {
-            override fun onItemClicked(item: Item) {
+            override fun onItemClicked(pos:Int,item: Item,imageView: ImageView) {
                 val bundle = Bundle()
                 val i = Intent(this@RepoDetailActivity, ContriButorActivity::class.java)
                 bundle.putSerializable(Keys.EXTRAS.REPO_ITEM, item)
@@ -81,6 +83,11 @@ class RepoDetailActivity : AppCompatActivity() {
             extras.getSerializable(Keys.EXTRAS.REPO_ITEM) as Item?
         } else {
             null
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val imageTransitionName =
+                extras?.getString(Keys.EXTRAS.EXTRA_AVTAR_IMAGE_TRANSITION_NAME)
+            ivAuthor.transitionName = imageTransitionName
         }
         tvNameValue.text = item?.name
         tvLinkValue.text = item?.cloneUrl

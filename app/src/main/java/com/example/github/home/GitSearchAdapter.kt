@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -48,8 +49,10 @@ class GitSearchAdapter(
             e.printStackTrace()
         }
 
+        ViewCompat.setTransitionName(holder.itemView.ivAvtar,list?.get(position)?.htmlUrl)
+
         holder.itemView.setOnClickListener {
-            onRepoItemClickedListener.onItemClicked(list?.get(position)!!)
+            onRepoItemClickedListener.onItemClicked(position,list?.get(position)!!,holder.itemView.ivAvtar)
         }
         holder.itemView.let {
             it.tvName.text = list?.get(position)?.name

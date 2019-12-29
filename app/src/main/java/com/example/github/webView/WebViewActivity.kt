@@ -32,6 +32,8 @@ class WebViewActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+        val test =32 to 42
+
 
     }
 

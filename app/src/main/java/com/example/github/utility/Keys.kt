@@ -14,6 +14,7 @@ interface Keys {
         companion object{
             const val REPO_ITEM="repo_item"
             const val URL="url"
+            const val EXTRA_AVTAR_IMAGE_TRANSITION_NAME="avtar_image"
         }
 
 

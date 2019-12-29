@@ -3,7 +3,10 @@ package com.example.github.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import com.example.github.R
 import com.example.github.base.BaseActivity
 import com.example.github.home.fragment.HomeFragment
@@ -11,15 +14,22 @@ import com.example.github.model.Item
 import com.example.github.repoDetail.RepoDetailActivity
 import com.example.github.utility.Constants
 import com.example.github.utility.Keys
+import com.example.github.utility.Keys.EXTRAS.Companion.EXTRA_AVTAR_IMAGE_TRANSITION_NAME
 
 
 class HomeActivity : BaseActivity(), HomeFragment.OnHomeFragmentInteractionListener {
-    override fun onFragmentInteraction(item: Item) {
+    override fun onFragmentInteraction(position: Int, item: Item, sharedImageView: ImageView) {
         val bundle = Bundle()
         val i = Intent(this, RepoDetailActivity::class.java)
         bundle.putSerializable(Keys.EXTRAS.REPO_ITEM, item)
         i.putExtras(bundle)
-        startActivity(i)
+        i.putExtra(EXTRA_AVTAR_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName(sharedImageView))
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            this,
+            sharedImageView,
+            ViewCompat.getTransitionName(sharedImageView)!!
+        )
+        startActivity(i, options.toBundle())
     }
 
 
