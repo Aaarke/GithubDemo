@@ -22,7 +22,8 @@ class RepoDetailViewModel : BaseViewModel() {
 
     fun getAllContriButerList(url: String) {
         subscription.add(
-            apiInterface?.getContriButers(url)!!.subscribeOn(Schedulers.io())
+            apiInterface?.getContriButers(url)!!
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveContributerListStart() }
                 .doOnTerminate { onRetrieveContributerListFinish() }

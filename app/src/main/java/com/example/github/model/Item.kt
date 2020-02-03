@@ -3,6 +3,10 @@ package com.example.github.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import android.provider.Contacts.Photos
+import android.R.id
+import androidx.annotation.NonNull
+import androidx.recyclerview.widget.DiffUtil
 
 
 data class Item(
@@ -240,4 +244,19 @@ data class Item(
     @Expose
     val repoUrl: String
 
-) : Serializable
+) : Serializable{
+    companion object{
+        val CALLBACK: DiffUtil.ItemCallback<Item> = object : DiffUtil.ItemCallback<Item>() {
+            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+                return oldItem.id === newItem.id
+
+            }
+
+            override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+                return true
+            }
+
+
+        }
+    }
+}

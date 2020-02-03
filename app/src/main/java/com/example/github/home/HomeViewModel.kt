@@ -1,64 +1,76 @@
 package com.example.github.home
 
-import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.github.R
+import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.github.base.BaseViewModel
-import com.example.github.model.GitData
+import com.example.github.model.Item
 import com.example.github.network.ApiInterface
-import com.example.github.utility.Keys
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel() {
+
+class HomeViewModel : BaseViewModel() ,IViewModel{
+
+
     var apiInterface: ApiInterface? = null
         @Inject set
-    var gitData = MutableLiveData<GitData>()
-    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    var errorMessage: MutableLiveData<String>? = MutableLiveData()
+    var executor: Executor? = null
+    var pagedListLiveData: LiveData<PagedList<Item>>? = null
+    var repoDataSourceFactory: RepoDataSourceFactory
+    var filterTextAll = MutableLiveData<String>()
+    val viewStateLiveData : MutableLiveData<IViewModel.ViewState> = MutableLiveData()
 
-    private val subscription = CompositeDisposable()
+    init {
+        repoDataSourceFactory =
+            RepoDataSourceFactory("tetris", apiInterface,this)
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(true)
+            .setInitialLoadSizeHint(10)
+            .setPageSize(10)
+            .setPrefetchDistance(7)
+            .build()
+        pagedListLiveData =
+            Transformations.switchMap(filterTextAll) { input ->
+                repoDataSourceFactory =
+                    RepoDataSourceFactory(input, apiInterface, this)
+                repoDataSourceFactory.errorMessage
+                executor = Executors.newFixedThreadPool(5)
+                 LivePagedListBuilder<Int, Item>(repoDataSourceFactory, config)
+                    .build()
+            }
 
-
-    fun getGitData(search:String) {
-        val map = HashMap<String, String>()
-        map[Keys.ApiField.REQ_Q] = search
-        map[Keys.ApiField.REQ_SORT] = "stars"
-        map[Keys.ApiField.REQ_ORDER] = "desc"
-        subscription.add(
-            apiInterface?.searchGitRepo(map)!!.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrieveSearchGitRepoStart() }
-                .doOnTerminate { onRetrieveSearchGitRepoFinish() }
-                .subscribe(
-                    { result -> onRetrieveSearchRepoSuccess(result) },
-                    { onRetrieveSearchGitRepoError() }
-                )
-        )
-
-    }
-
-    private fun onRetrieveSearchGitRepoFinish() {
-        loadingVisibility.value = View.GONE
-
-    }
-
-    private fun onRetrieveSearchGitRepoStart() {
-        loadingVisibility.value = View.VISIBLE
-        errorMessage.value = null
 
     }
 
-    private fun onRetrieveSearchGitRepoError() {
-        errorMessage.value = R.string.post_error
+    override fun setState(state: IViewModel.ViewState) {
+        when(state){
+            is   IViewModel.ViewState.EmptyState->{
+                viewStateLiveData.postValue(IViewModel.ViewState.EmptyState)
+            }
+
+            is  IViewModel.ViewState.LoadingState->{
+                viewStateLiveData.postValue(IViewModel.ViewState.LoadingState)
+
+            }
+
+            is  IViewModel.ViewState.ErrorState->{
+                viewStateLiveData.postValue(IViewModel.ViewState.ErrorState)
+
+            }
+
+            is  IViewModel.ViewState.successState->{
+                viewStateLiveData.postValue(IViewModel.ViewState.successState)
+
+            }
+        }
 
     }
 
-    private fun onRetrieveSearchRepoSuccess(result: GitData?) {
-        gitData.value = result
-    }
 
 
 }

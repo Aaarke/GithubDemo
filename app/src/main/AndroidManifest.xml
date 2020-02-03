@@ -26,11 +26,8 @@
         <activity
             android:name=".repoDetail.RepoDetailActivity"
             android:label="@string/title_activity_repo_detail"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".RepoDetailActivity"
-            android:label="@string/title_activity_repo_detail"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionAndStatusBar" />
+
         <activity android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

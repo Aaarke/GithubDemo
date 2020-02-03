@@ -1,23 +1,33 @@
 package com.example.github.repoDetail
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.github.R
 import com.example.github.contriButor.ContriButorActivity
 import com.example.github.home.OnRepoItemClickedListener
 import com.example.github.model.Item
 import com.example.github.utility.Keys
 import com.example.github.webView.WebViewActivity
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kotlinx.android.synthetic.main.activity_repo_detail.*
 import kotlinx.android.synthetic.main.content_repo_detail.*
@@ -32,11 +42,18 @@ class RepoDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_repo_detail)
         repoDetailViewModel = ViewModelProviders.of(this).get(RepoDetailViewModel::class.java)
         setSupportActionBar(toolbar)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         setInitialUI()
         setValueInUi()
         getListOfContriButer()
-
     }
+
+
+
 
     private fun getListOfContriButer() {
         repoDetailViewModel.getAllContriButerList(item?.contributorsUrl!!)
@@ -93,8 +110,18 @@ class RepoDetailActivity : AppCompatActivity() {
         tvLinkValue.text = item?.cloneUrl
         tvRepoDescriptionValue.text = item?.description
         Glide.with(this)
+            .asBitmap()
             .load(item?.owner?.avatarUrl)
-            .into(ivAuthor)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    ivAuthor.setImageBitmap(resource)
+                    setToolbarColor(resource)
+                }
+            })
 
     }
 
@@ -109,10 +136,6 @@ class RepoDetailActivity : AppCompatActivity() {
         )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
-        Glide.with(this)
-            .load(R.drawable.default_image)
-            .apply(RequestOptions.circleCropTransform())
-            .into(ivAuthor)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -121,7 +144,46 @@ class RepoDetailActivity : AppCompatActivity() {
             intent.putExtra(Keys.EXTRAS.URL, item?.htmlUrl)
             startActivity(intent)
         }
+
     }
+
+
+
+    fun Lightness(color: Int): Float {
+        val red = Color.red(color)
+        val green = Color.green(color)
+        val blue = Color.blue(color)
+
+        val hsl = FloatArray(3)
+        ColorUtils.RGBToHSL(red, green, blue, hsl)
+        return hsl[2]
+
+
+    }
+
+    // Set the background and text colors of a toolbar given a
+// bitmap image to match
+    fun setToolbarColor(bitmap: Bitmap) {
+        // Generate the palette and get the vibrant swatch
+        val vibrantSwatch = createPaletteSync(bitmap).vibrantSwatch
+
+        // Set the toolbar background and text colors.
+        // Fall back to default colors if the vibrant swatch is not available.
+        with(findViewById<AppBarLayout>(R.id.app_bar)) {
+            setBackgroundColor(vibrantSwatch?.rgb ?:
+            ContextCompat.getColor(context, R.color.material_grey300))
+        }
+    }
+
+
+
+    // Generate palette synchronously and return it
+    fun createPaletteSync(bitmap: Bitmap): Palette = Palette.from(bitmap).generate()
+
+
+
+
+
 
 
 }

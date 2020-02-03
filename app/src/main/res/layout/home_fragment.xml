@@ -13,7 +13,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvGitRepo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layoutAnimation="@anim/layout_animation_fall_down"
+            android:layout_height="match_parent" />
 
         <ProgressBar
             android:id="@+id/pbHomeLoader"
@@ -22,6 +23,18 @@
             android:layout_centerInParent="true"
             android:outlineAmbientShadowColor="@color/material_redA700"
             android:outlineSpotShadowColor="@color/material_red100" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:text="@string/no_result"
+            android:layout_centerInParent="true"
+            />
     </RelativeLayout>
 
 

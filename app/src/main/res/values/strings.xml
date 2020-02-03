@@ -105,5 +105,6 @@
     <string name="repo_list">Repo List</string>
     <string name="title_activity_web_view">WebViewActivity</string>
     <string name="repo">Repo</string>
+    <string name="no_result">No result found</string>
 
 </resources>

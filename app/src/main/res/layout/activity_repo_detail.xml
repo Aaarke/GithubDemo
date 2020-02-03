@@ -10,8 +10,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:fitsSystemWindows="true"
+        android:background="@color/material_grey300"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -22,14 +23,13 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
-            <ImageView
+            <com.example.github.customview.AspectRatioImageView
                 android:id="@+id/ivAuthor"
                 android:layout_width="match_parent"
-                android:background="@drawable/default_image"
-                android:scaleType="fitXY"
+                android:scaleType="fitStart"
                 android:layout_height="match_parent">
 
-            </ImageView>
+            </com.example.github.customview.AspectRatioImageView>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

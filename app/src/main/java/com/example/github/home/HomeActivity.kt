@@ -46,7 +46,7 @@ class HomeActivity : BaseActivity(), HomeFragment.OnHomeFragmentInteractionListe
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.dashboard, menu);
         val myActionMenuItem = menu?.findItem(R.id.action_search)
-        var searchView = myActionMenuItem?.actionView as SearchView
+        val searchView = myActionMenuItem?.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (!searchView.isIconified) {

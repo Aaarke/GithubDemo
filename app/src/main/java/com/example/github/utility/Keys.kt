@@ -6,6 +6,7 @@ interface Keys {
         const val REQ_Q: String="q"
         const val REQ_SORT="sort"
         const val REQ_ORDER="order"
+        const val REQ_PAGE="page"
 
     }
     }
