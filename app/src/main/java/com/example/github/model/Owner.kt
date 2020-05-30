@@ -11,7 +11,7 @@ data class Owner(
     val login: String,
     @SerializedName("id")
     @Expose
-    val id: Integer,
+    val id: Int,
     @SerializedName("node_id")
     @Expose
     val nodeId: String,

@@ -16,4 +16,4 @@ data class GitData(
     @Expose
     val items: ArrayList<Item>? = null
 
-):Serializable
+) : Serializable

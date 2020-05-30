@@ -7,8 +7,10 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
+import androidx.databinding.DataBindingUtil
 import com.example.github.R
 import com.example.github.base.BaseActivity
+import com.example.github.databinding.HomeActivityBinding
 import com.example.github.home.fragment.HomeFragment
 import com.example.github.model.Item
 import com.example.github.repoDetail.RepoDetailActivity
@@ -18,6 +20,11 @@ import com.example.github.utility.Keys.EXTRAS.Companion.EXTRA_AVTAR_IMAGE_TRANSI
 
 
 class HomeActivity : BaseActivity(), HomeFragment.OnHomeFragmentInteractionListener {
+
+    lateinit var binding:HomeActivityBinding
+    /**
+     * ********************** Handling callback from fragment **************************************
+     * */
     override fun onFragmentInteraction(position: Int, item: Item, sharedImageView: ImageView) {
         val bundle = Bundle()
         val i = Intent(this, RepoDetailActivity::class.java)
@@ -32,10 +39,12 @@ class HomeActivity : BaseActivity(), HomeFragment.OnHomeFragmentInteractionListe
         startActivity(i, options.toBundle())
     }
 
-
+    /**
+     * ******************************** Handling on create callback ********************************
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_activity)
+        binding=DataBindingUtil.setContentView(this,R.layout.home_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, HomeFragment.newInstance(), Constants.Fragment.FRAG_HOME)

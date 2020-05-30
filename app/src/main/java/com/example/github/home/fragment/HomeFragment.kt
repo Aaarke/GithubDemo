@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.github.R
+import com.example.github.databinding.HomeFragmentBinding
 import com.example.github.home.*
 import com.example.github.model.Item
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -27,63 +31,57 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: HomeFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+
+        val binding: HomeFragmentBinding = DataBindingUtil.inflate(
+            inflater, R.layout.home_fragment, container, false
+        )
+        return binding.getRoot()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val factory = HomeViewModelFactory()
-        homeViewModel =
-            ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
+        homeViewModel =ViewModelProvider(this,factory).get(HomeViewModel::class.java)
         homeViewModel.filterTextAll.value = "tetris"
-
         setObserver()
-        main.setOnRefreshListener {
+        binding.main.setOnRefreshListener {
             main.isRefreshing = false
 
         }
     }
 
     private fun setObserver() {
-        homeViewModel.pagedListLiveData?.observe(this, Observer {
+        homeViewModel.pagedListLiveData?.observe(viewLifecycleOwner, Observer {
             setAdapter(it)
         })
-        homeViewModel.errorMessage?.observe(this, Observer {
-            if (it.isNotEmpty()) {
 
-            }
-        })
 
-        homeViewModel.viewStateLiveData.observe(this, Observer {
-            when(it){
-               is  IViewModel.ViewState.LoadingState->{
-                   if(rvGitRepo.visibility==View.GONE){
-                       rvGitRepo.visibility=View.VISIBLE
-                   }
-                   pbHomeLoader.visibility=View.VISIBLE
-                   tvError.visibility=View.GONE
-               }
-               is IViewModel.ViewState.EmptyState->{
-                   pbHomeLoader.visibility=View.GONE
-                   rvGitRepo.visibility=View.GONE
-                   tvError.visibility=View.VISIBLE
-                   tvError.text=getString(R.string.no_result)
-               }
-                is IViewModel.ViewState.ErrorState->{
-                    pbHomeLoader.visibility=View.GONE
-                }
+        homeViewModel.viewStateLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+//                is IViewModel.ViewState.LoadingState -> {
+//                    if (rvGitRepo.visibility == View.GONE) {
+//                        rvGitRepo.visibility = View.VISIBLE
+//                    }
+//                    pbHomeLoader.visibility = View.VISIBLE
+//                    tvError.visibility = View.GONE
+//                }
+//                is IViewModel.ViewState.EmptyState -> {
+//                    pbHomeLoader.visibility = View.GONE
+//                    rvGitRepo.visibility = View.GONE
+//                    tvError.visibility = View.VISIBLE
+//                    tvError.text = getString(R.string.no_result)
+//                }
+//                is IViewModel.ViewState.ErrorState -> {
+//                    pbHomeLoader.visibility = View.GONE
+//                }
 
-                is IViewModel.ViewState.successState->{
-                    if(rvGitRepo.visibility==View.GONE){
-                        rvGitRepo.visibility=View.VISIBLE
-                    }
-                    pbHomeLoader.visibility=View.GONE
-                    tvError.visibility=View.GONE
+                is IViewModel.ViewState.successState -> {
                     startAnimation()
                 }
 
@@ -118,16 +116,19 @@ class HomeFragment : Fragment() {
                 }
             })
         mGitSearchAdapter!!.submitList(items)
-        val mLinearLayoutManager =
-            LinearLayoutManager(activity)
-        rvGitRepo.layoutManager = mLinearLayoutManager
-        rvGitRepo.adapter = mGitSearchAdapter
-            startAnimation()
+        binding.myAdapter=mGitSearchAdapter
+
+//        val mLinearLayoutManager =
+//            LinearLayoutManager(activity)
+//        rvGitRepo.layoutManager = mLinearLayoutManager
+//        rvGitRepo.adapter = mGitSearchAdapter
+        startAnimation()
 
     }
 
-    private fun startAnimation(){
-        val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+    private fun startAnimation() {
+        val animation =
+            AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
         rvGitRepo.layoutAnimation = animation
     }
 

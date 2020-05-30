@@ -51,6 +51,7 @@ class HomeViewModel : BaseViewModel() ,IViewModel{
         when(state){
             is   IViewModel.ViewState.EmptyState->{
                 viewStateLiveData.postValue(IViewModel.ViewState.EmptyState)
+
             }
 
             is  IViewModel.ViewState.LoadingState->{

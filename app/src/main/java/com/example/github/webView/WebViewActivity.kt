@@ -28,11 +28,10 @@ class WebViewActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.title = getString(R.string.repo)
-        loadWebView(intent.getStringExtra("url"))
+        loadWebView(intent.getStringExtra("url")!!)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-        val test =32 to 42
 
 
     }

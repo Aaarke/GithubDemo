@@ -26,6 +26,7 @@ class GitSearchAdapter(
             .inflate(R.layout.item_all_git, parent, false)
         return ViewHolder(itemView)
     }
+    
 
 
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 data class Item(
     @SerializedName("id")
     @Expose
-    val id: Integer,
+    val id: Int,
     @SerializedName("node_id")
     @Expose
     val nodeId: String,
@@ -174,13 +174,13 @@ data class Item(
     val homepage: Object,
     @SerializedName("size")
     @Expose
-    val size: Integer,
+    val size: Int,
     @SerializedName("stargazers_count")
     @Expose
-    val stargazersCount: Integer,
+    val stargazersCount: Int,
     @SerializedName("watchers_count")
     @Expose
-    val watchersCount: Integer,
+    val watchersCount: Int,
     @SerializedName("language")
     @Expose
     val language: String,
@@ -201,7 +201,7 @@ data class Item(
     val hasPages: Boolean,
     @SerializedName("forks_count")
     @Expose
-    val forksCount: Integer,
+    val forksCount: Int,
     @SerializedName("mirror_url")
     @Expose
     val mirrorUrl: Object,
@@ -213,19 +213,19 @@ data class Item(
     val disabled: Boolean,
     @SerializedName("open_issues_count")
     @Expose
-    val openIssuesCount: Integer,
+    val openIssuesCount: Int,
     @SerializedName("license")
     @Expose
     val license: Object,
     @SerializedName("forks")
     @Expose
-    val forks: Integer,
+    val forks: Int,
     @SerializedName("open_issues")
     @Expose
-    val openIssues: Integer,
+    val openIssues: Int,
     @SerializedName("watchers")
     @Expose
-    val watchers: Integer,
+    val watchers: Int,
     @SerializedName("default_branch")
     @Expose
     val defaultBranch: String,
